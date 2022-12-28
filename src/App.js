@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import React,{useState} from 'react'
+import Button from '@mui/material/Button';
+import axios from 'axios';
+import MUIDataTable from 'mui-datatables';
 import './App.css';
 
 function App() {
+  const [data,setData]=useState([])
+  const columns=[
+    {
+      name: 'name',
+      label: 'Name'
+    },
+    {
+      name:'url',
+      label:'url'
+    }
+      ]
+
+  async function getPokemones(){
+    try{
+    const pokemones = await axios.get('https://pokeapi.co/api/v2/pokemon')
+    console.log('poke', pokemones.data.results)
+    setData(pokemones.data.results)
+    console.log('data',data)
+    }
+    catch(error){
+      console.error(error);
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+            <Button onClick={getPokemones} variant="outlined">Primary</Button>
+            <MUIDataTable
+            title={'pokemones'}
+            data={data}
+            columns={columns}
+            />
     </div>
   );
 }
