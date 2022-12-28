@@ -20,9 +20,7 @@ function App() {
   async function getPokemones(){
     try{
     const pokemones = await axios.get('https://pokeapi.co/api/v2/pokemon')
-    console.log('poke', pokemones.data.results)
     setData(pokemones.data.results)
-    console.log('data',data)
     }
     catch(error){
       console.error(error);
@@ -30,7 +28,7 @@ function App() {
   }
   return (
     <div className="App">
-            <Button onClick={getPokemones} variant="outlined">Primary</Button>
+            <Button onClick={getPokemones} variant="outlined">get data</Button>
             <MUIDataTable
             title={'pokemones'}
             data={data}
