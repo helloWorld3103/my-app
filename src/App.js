@@ -28,7 +28,7 @@ function App() {
   }
   return (
     <div className="App">
-            <Button onClick={getPokemones} variant="outlined">get data</Button>
+            <Button onClick={getPokemones} variant="outlined">get Data</Button>
             <MUIDataTable
             title={'pokemones'}
             data={data}
