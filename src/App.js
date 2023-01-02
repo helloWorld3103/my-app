@@ -8,6 +8,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 function App() {
   const [data, setData] = useState([])
+
+
   const columns = [
     {
       name: 'name',
@@ -54,6 +56,12 @@ function App() {
           title={'pokemones'}
           data={data}
           columns={columns}
+          options={{
+            onRowClick:(rowData,rowMeta)=>{
+              const name=rowData[0]
+              console.log(name)
+            }
+          }}
         />
       </div>
     </div>
