@@ -18,10 +18,10 @@ function App() {
       label: 'url'
     }
   ]
-  const names = data.map(pokemon =>{
-    let properties={
+  const names = data.map(pokemon => {
+    let properties = {
       label: pokemon.name,
-      value:pokemon.name
+      value: pokemon.name
     }
     return properties;
   })
@@ -36,25 +36,27 @@ function App() {
     }
   }
   return (
-    <div style={{display:'flex'}}>
-      <Button class='button' onClick={getPokemones} variant="outlined">get data</Button>
-      <Autocomplete
-      class='autocomplete'
-        disablePortal
-        id='autocomplete'
-        options={names}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextFile {...params} label='Pokemones' />}
-      />
-    <div className="App">
-      <MUIDataTable
-      class='table'
-        title={'pokemones'}
-        data={data}
-        columns={columns}
-      />
+    <div>
+      <div style={{ display: 'flex' }}>
+        <Button style={{ margin: '20px' }} onClick={getPokemones} variant="outlined">get data</Button>
+        <Autocomplete
+          style={{ margin: '20px' }}
+          disablePortal
+          id='autocomplete'
+          options={names}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextFile {...params} label='Pokemones' />}
+        />
+      </div>
+      <div className="App">
+        <MUIDataTable
+          style={{ margin: '20px' }}
+          title={'pokemones'}
+          data={data}
+          columns={columns}
+        />
+      </div>
     </div>
-        </div>
   );
 }
 
