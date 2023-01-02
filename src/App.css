@@ -1,10 +1,16 @@
 .App {
   text-align: center;
 }
+.Button{
+  margin: 20px;
+}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.autoComplete{
+  margin: 20px;
+}
+
+.table{
+  margin: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
