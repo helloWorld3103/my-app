@@ -18,14 +18,14 @@ function App() {
       label: 'url'
     }
   ]
-  const names = data.map(a =>{
+  const names = data.map(pokemon =>{
     let properties={
-      'label': a.name,
-      'name':a.name
+      label: pokemon.name,
+      value:pokemon.name
     }
     return properties;
   })
-  console.log(names)
+
   async function getPokemones() {
     try {
       const pokemones = await axios.get('https://pokeapi.co/api/v2/pokemon')
@@ -36,21 +36,25 @@ function App() {
     }
   }
   return (
-    <div className="App">
-      <Button onClick={getPokemones} variant="outlined">get data</Button>
+    <div style={{display:'flex'}}>
+      <Button class='button' onClick={getPokemones} variant="outlined">get data</Button>
       <Autocomplete
+      class='autocomplete'
         disablePortal
         id='autocomplete'
         options={names}
         sx={{ width: 300 }}
         renderInput={(params) => <TextFile {...params} label='Pokemones' />}
       />
+    <div className="App">
       <MUIDataTable
+      class='table'
         title={'pokemones'}
         data={data}
         columns={columns}
       />
     </div>
+        </div>
   );
 }
 
