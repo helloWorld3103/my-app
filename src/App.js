@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
+import TextFile from '@mui/material/TextField';
 import './App.css';
+import Autocomplete from '@mui/material/Autocomplete';
 
 function App() {
   const [data, setData] = useState([])
@@ -16,6 +18,13 @@ function App() {
       label: 'url'
     }
   ]
+  const names = data.map(pokemon => {
+    let properties = {
+      label: pokemon.name,
+      value: pokemon.name
+    }
+    return properties;
+  })
 
   async function getPokemones() {
     try {
@@ -27,13 +36,26 @@ function App() {
     }
   }
   return (
-    <div className="App">
-      <Button onClick={getPokemones} variant="outlined">get data</Button>
-      <MUIDataTable
-        title={'pokemones'}
-        data={data}
-        columns={columns}
-      />
+    <div>
+      <div style={{ display: 'flex' }}>
+        <Button style={{ margin: '20px' }} onClick={getPokemones} variant="outlined">get data</Button>
+        <Autocomplete
+          style={{ margin: '20px' }}
+          disablePortal
+          id='autocomplete'
+          options={names}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextFile {...params} label='Pokemones' />}
+        />
+      </div>
+      <div className="App">
+        <MUIDataTable
+          style={{ margin: '20px' }}
+          title={'pokemones'}
+          data={data}
+          columns={columns}
+        />
+      </div>
     </div>
   );
 }
