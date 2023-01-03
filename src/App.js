@@ -6,6 +6,11 @@ import TextFile from '@mui/material/TextField';
 import './App.css';
 import Autocomplete from '@mui/material/Autocomplete';
 import PokemonModal from './components/modal';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
 
 function App() {
   const [data, setData] = useState([])
@@ -15,7 +20,7 @@ function App() {
   const handleClose = () => {
     setOpen(false)
   }
-  
+
   const columns = [
     {
       name: 'name',
@@ -26,6 +31,8 @@ function App() {
       label: 'url'
     }
   ]
+
+
 
   const names = data.map(pokemon => {
     let properties = {
@@ -58,11 +65,33 @@ function App() {
         />
         <PokemonModal
           name={name}
-          open={open}
-          handleClose={handleClose}
+        //open={open}
+        // handleClose={handleClose}
         >
 
         </PokemonModal>
+        <Box sx={{ width: '100%' }}>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(handleClose);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          {name} is the pokemon you choose
+        </Alert>
+      </Collapse>
+        
+    </Box>
       </div>
       <div className="App">
         <MUIDataTable
@@ -78,6 +107,7 @@ function App() {
             }
           }}
         />
+
       </div>
     </div>
   );
