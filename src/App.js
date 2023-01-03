@@ -15,10 +15,14 @@ import Box from '@mui/material/Box';
 function App() {
   const [data, setData] = useState([])
   const [open, setOpen] = useState(false)
+  const [openAlert, setOpenAlert] = useState(false)
   const [name, setName] = useState('')
 
   const handleClose = () => {
     setOpen(false)
+  }
+  const handleCloseAlert = () => {
+    setOpenAlert(false)
   }
 
   const columns = [
@@ -65,33 +69,33 @@ function App() {
         />
         <PokemonModal
           name={name}
-        //open={open}
-        // handleClose={handleClose}
+          open={open}
+          handleClose={handleClose}
         >
 
         </PokemonModal>
         <Box sx={{ width: '100%' }}>
-      <Collapse in={open}>
-        <Alert
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setOpen(handleClose);
-              }}
+          <Collapse in={openAlert}>
+            <Alert severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(handleCloseAlert);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
             >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-          {name} is the pokemon you choose
-        </Alert>
-      </Collapse>
-        
-    </Box>
+              {name} cannot be displayed
+            </Alert>
+          </Collapse>
+
+        </Box>
       </div>
       <div className="App">
         <MUIDataTable
@@ -104,6 +108,7 @@ function App() {
               const name = rowData[0]
               setName(name)
               setOpen(true)
+              setOpenAlert(true)
             }
           }}
         />
