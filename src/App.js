@@ -5,9 +5,17 @@ import MUIDataTable from 'mui-datatables';
 import TextFile from '@mui/material/TextField';
 import './App.css';
 import Autocomplete from '@mui/material/Autocomplete';
+import PokemonModal from './components/modal';
 
 function App() {
   const [data, setData] = useState([])
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState('')
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+  
   const columns = [
     {
       name: 'name',
@@ -18,6 +26,7 @@ function App() {
       label: 'url'
     }
   ]
+
   const names = data.map(pokemon => {
     let properties = {
       label: pokemon.name,
@@ -47,6 +56,13 @@ function App() {
           sx={{ width: 300 }}
           renderInput={(params) => <TextFile {...params} label='Pokemones' />}
         />
+        <PokemonModal
+          name={name}
+          open={open}
+          handleClose={handleClose}
+        >
+
+        </PokemonModal>
       </div>
       <div className="App">
         <MUIDataTable
@@ -54,6 +70,13 @@ function App() {
           title={'pokemones'}
           data={data}
           columns={columns}
+          options={{
+            onRowClick: (rowData, rowMeta) => {
+              const name = rowData[0]
+              setName(name)
+              setOpen(true)
+            }
+          }}
         />
       </div>
     </div>
