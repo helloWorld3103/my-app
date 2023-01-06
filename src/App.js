@@ -36,7 +36,13 @@ function App() {
     }
   ]
 
-
+  const notChoosePokemon = (name) => {
+    if (name === 'bulbasaur') {
+      setOpenAlert(true)
+    } else {
+      setOpen(true)
+    }
+  }
 
   const names = data.map(pokemon => {
     let properties = {
@@ -107,8 +113,9 @@ function App() {
             onRowClick: (rowData, rowMeta) => {
               const name = rowData[0]
               setName(name)
-              setOpen(true)
-              setOpenAlert(true)
+              notChoosePokemon(name)
+              //setOpen(true)
+              //setOpenAlert(true)
             }
           }}
         />
