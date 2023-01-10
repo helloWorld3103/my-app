@@ -14,12 +14,12 @@ import Box from '@mui/material/Box';
 
 function App() {
   const [data, setData] = useState([])
-  const [open, setOpen] = useState(false)
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
   const [openAlert, setOpenAlert] = useState(false)
   const [name, setName] = useState('')
 
   const handleClose = () => {
-    setOpen(false)
+    setOpenErrorDialog(false)
   }
   const handleCloseAlert = () => {
     setOpenAlert(false)
@@ -35,12 +35,13 @@ function App() {
       label: 'url'
     }
   ]
+  const namesAlert = ['bulbasaur', 'charmeleon', 'squirtle']
 
   const notChoosePokemon = (name) => {
-    if (name === 'bulbasaur') {
+    if (namesAlert.includes(name)) {
       setOpenAlert(true)
     } else {
-      setOpen(true)
+      setOpenErrorDialog(true)
     }
   }
 
@@ -75,33 +76,11 @@ function App() {
         />
         <PokemonModal
           name={name}
-          open={open}
+          open={openErrorDialog}
           handleClose={handleClose}
         >
 
         </PokemonModal>
-        <Box sx={{ width: '100%' }}>
-          <Collapse in={openAlert}>
-            <Alert severity="error"
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpen(handleCloseAlert);
-                  }}
-                >
-                  <CloseIcon fontSize="inherit" />
-                </IconButton>
-              }
-              sx={{ mb: 2 }}
-            >
-              {name} cannot be displayed
-            </Alert>
-          </Collapse>
-
-        </Box>
       </div>
       <div className="App">
         <MUIDataTable
@@ -114,12 +93,31 @@ function App() {
               const name = rowData[0]
               setName(name)
               notChoosePokemon(name)
-              //setOpen(true)
-              //setOpenAlert(true)
             }
           }}
         />
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={openAlert}>
+            <Alert severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpenErrorDialog(handleCloseAlert);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              {name} cannot be displayed
+            </Alert>
+          </Collapse>
 
+        </Box>
       </div>
     </div>
   );
