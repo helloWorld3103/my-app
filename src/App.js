@@ -6,16 +6,25 @@ import TextFile from '@mui/material/TextField';
 import './App.css';
 import Autocomplete from '@mui/material/Autocomplete';
 import PokemonModal from './components/modal';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
 
 function App() {
   const [data, setData] = useState([])
-  const [open, setOpen] = useState(false)
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
+  const [openAlert, setOpenAlert] = useState(false)
   const [name, setName] = useState('')
 
   const handleClose = () => {
-    setOpen(false)
+    setOpenErrorDialog(false)
   }
-  
+  const handleCloseAlert = () => {
+    setOpenAlert(false)
+  }
+
   const columns = [
     {
       name: 'name',
@@ -26,6 +35,15 @@ function App() {
       label: 'url'
     }
   ]
+  const namesAlert = ['bulbasaur', 'charmeleon', 'squirtle']
+
+  const notChoosePokemon = (name) => {
+    if (namesAlert.includes(name)) {
+      setOpenAlert(true)
+    } else {
+      setOpenErrorDialog(true)
+    }
+  }
 
   const names = data.map(pokemon => {
     let properties = {
@@ -58,7 +76,7 @@ function App() {
         />
         <PokemonModal
           name={name}
-          open={open}
+          open={openErrorDialog}
           handleClose={handleClose}
         >
 
@@ -74,10 +92,32 @@ function App() {
             onRowClick: (rowData, rowMeta) => {
               const name = rowData[0]
               setName(name)
-              setOpen(true)
+              notChoosePokemon(name)
             }
           }}
         />
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={openAlert}>
+            <Alert severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpenErrorDialog(handleCloseAlert);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              {name} cannot be displayed
+            </Alert>
+          </Collapse>
+
+        </Box>
       </div>
     </div>
   );
