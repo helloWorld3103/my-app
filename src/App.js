@@ -54,11 +54,8 @@ function App() {
   })
   useEffect(() => {
 
-    try {
-      getPokemones()
-    } catch (error) {
-      console.log(error)
-    }
+    getPokemones()
+
   }, [])
 
   async function getPokemones() {
