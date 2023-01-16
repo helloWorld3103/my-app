@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import TextFile from '@mui/material/TextField';
@@ -11,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
+
 
 function App() {
   const [data, setData] = useState([])
@@ -52,6 +52,11 @@ function App() {
     }
     return properties;
   })
+  useEffect(() => {
+
+    getPokemones()
+
+  }, [])
 
   async function getPokemones() {
     try {
@@ -65,7 +70,6 @@ function App() {
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        <Button style={{ margin: '20px' }} onClick={getPokemones} variant="outlined">get data</Button>
         <Autocomplete
           style={{ margin: '20px' }}
           disablePortal
