@@ -38,7 +38,7 @@ function App() {
   const namesAlert = ['bulbasaur', 'charmeleon', 'squirtle']
 
   const notChoosePokemon = (name) => {
-    if (namesAlert.includes(name)) {
+    if (!namesAlert.includes(name)) {
       setOpenAlert(true)
     } else {
       setOpenErrorDialog(true)
